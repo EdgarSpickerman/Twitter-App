@@ -1,0 +1,25 @@
+{
+  "name": "twitter-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EdgarSpickerman/Twitter-App.git"
+  },
+  "author": "Edgar Spickerman Jr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EdgarSpickerman/Twitter-App/issues"
+  },
+  "homepage": "https://github.com/EdgarSpickerman/Twitter-App#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "pug": "^2.0.0-rc.4",
+    "twit": "^2.2.9"
+  }
+}
