@@ -286,3 +286,8 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+config.js
+node_modules/
+.DS_Store
+.sass-cache
