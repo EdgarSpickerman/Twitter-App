@@ -3,12 +3,13 @@ const router = express.Router();
 const config = require('../config.js');
 const Twit = require('twit');
 
+
 //Authenticates the newly created twit
 //resolves with the authUser's name, screen_name, friends count, profile image and banner;
 //rejects the user if any key is invalid.
-const isAuthenticated = keys => {
+const isAuthenticated = () => {
     return new Promise((resolve,reject) => {
-        let T = new Twit(keys)
+        let T = new Twit(config);
         T.get('account/verify_credentials', (err, data) => {
             if (err) return reject(err)
             let authUser = {};
@@ -23,14 +24,31 @@ const isAuthenticated = keys => {
     });
 }
 
+
 //gets the authUser's last 5 friends
 //resolves with the authuser's 5 most recent friends
 //rejects if any error's occur or if they exceeding 15 attempts in 15 minutes
 const getFriends = authUser => {
     return new Promise((resolve,reject) => {
-        T.get('friends/list', {count: 5}, (err, data) => {
+        let T = new Twit(config);
+        T.get('friends/list', { count: 5 }, (err, data) => {
             if (err) return reject(err);
             authUser.friends = data.users
+            resolve(authUser);
+        });
+    });
+};
+
+
+//gets the authUser's last 5 DM's that they sent
+//resolves with the authUser's last 5 DM's
+//Rejects if exceeds 15 attempts in 15 minutes
+const getMessages = authUser => {
+    return new Promise((resolve, reject) => {
+        let T = new Twit(config);
+        T.get('direct_messages/sent', { count: 5 }, (err, data) => {
+            if (err) return reject(err);
+            authUser.friends = data
             resolve(authUser);
         });
     });
@@ -40,7 +58,9 @@ const getFriends = authUser => {
 //authenticates the user retrieving the last 5 tweets,DM's, and friends rendering that info to the screen.
 //reject's the user's request if any error's are present with a friendly message
 router.get('/', (req, res) => {
-    isAuthenticated(config)
+    isAuthenticated()
+        .then(getFriends)
+        .then(getMessages)
         .then(user => {
             console.log(user);
             res.render('index')
@@ -50,6 +70,5 @@ router.get('/', (req, res) => {
             res.redirect('/error');
         });
 });
-
 
 module.exports = router;
