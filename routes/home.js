@@ -39,6 +39,20 @@ const getFriends = authUser => {
     });
 };
 
+//retrieves the last 5 tweets made by the authUser
+//resolves with a sorted list by date of the tweets
+//rejects if any error's occur.
+const getTweets = authUser => {
+    return new Promise((resolve, reject) => {
+        let T = new Twit(config);
+        T.get('direct_messages/sent', { count: 5 }, (err, data) => {
+            if (err) return reject(err);
+            authUser.tweets = data
+            resolve(authUser);
+        });
+    });
+};
+
 
 //gets the authUser's last 5 DM's that they sent
 //resolves with the authUser's last 5 DM's
@@ -59,6 +73,7 @@ const getMessages = authUser => {
 //reject's the user's request if any error's are present with a friendly message
 router.get('/', (req, res) => {
     isAuthenticated()
+        .then(getTweets)
         .then(getFriends)
         .then(getMessages)
         .then(user => {
