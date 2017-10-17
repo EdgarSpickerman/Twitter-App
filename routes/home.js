@@ -101,7 +101,18 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    res.send({});
+    let T = new Twit(config);
+    T.post('statuses/update', { status: req.body.newTweet }, (err, data) => {
+        if (err) return res.send(err);
+        let tweetData = {};
+        tweetData.picture = data.user.profile_image_url;
+        tweetData.author = '<h4>' + data.user.name + '</h4> @' + data.user.screen_name;
+        tweetData.date = new Date(data.created_at).toLocaleString();
+        tweetData.like = data.favorite_count;
+        tweetData.retweet = data.retweet_count;
+        tweetData.message = data.text;
+        res.send(tweetData);
+    });
 });
 
 module.exports = router;
