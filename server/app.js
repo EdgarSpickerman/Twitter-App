@@ -2,7 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const home = require('../routes/home');
-const error = require('../routes/home');
+const error = require('../routes/error');
 
 
 //variables
@@ -20,6 +20,10 @@ const consoleMessage = `Twitter Application running on localhost:${port}`;
     //routes
         app.use(home);
         app.use(error);
+        app.use((err, req, res, next) => {
+            app.locals.error = { message: err, stack: err.stack };
+            res.redirect('/error')
+        })
 
     //listening Port
         app.listen(port, () => console.log(consoleMessage));

@@ -84,7 +84,7 @@ const getMessages = authUser => {
 //Describes what happens when the server recieves a get request to the / route.
 //authenticates the user retrieving the last 5 tweets,DM's, and friends rendering that info to the screen.
 //reject's the user's request if any error's are present with a friendly message
-router.get('/', (req, res) => {
+router.get('/', (req, res,next) => {
     isAuthenticated()
         .then(getTweets)
         .then(getFriends)
@@ -93,11 +93,7 @@ router.get('/', (req, res) => {
         .then(user => {
             res.locals = user;
             res.render('index')
-        }).catch(err => {
-            console.log(err.message);
-            //error = err.message might have to dynamically write the error to /error
-            res.redirect('/error');
-        });
+        }).catch(err => next(err));
 });
 
 router.post('/', (req, res) => {
