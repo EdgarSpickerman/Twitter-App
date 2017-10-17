@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const config = require('../config.js');
 const Twit = require('twit');
-let error = '';
 
 //Authenticates the newly created twit
 //resolves with the authUser's name, screen_name, friends count, profile image and banner;
@@ -24,6 +23,18 @@ const isAuthenticated = keys => {
     });
 }
 
+//gets the authUser's last 5 friends
+//resolves with the authuser's 5 most recent friends
+//rejects if any error's occur or if they exceeding 15 attempts in 15 minutes
+const getFriends = authUser => {
+    return new Promise((resolve,reject) => {
+        T.get('friends/list', {count: 5}, (err, data) => {
+            if (err) return reject(err);
+            authUser.friends = data.users
+            resolve(authUser);
+        });
+    });
+};
 
 //Describes what happens when the server recieves a get request to the / route.
 //authenticates the user retrieving the last 5 tweets,DM's, and friends rendering that info to the screen.
