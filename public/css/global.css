@@ -2491,7 +2491,6 @@ a:hover .app--avatar {
   left: auto;
   right: -8px;
 }
-
 /* line 272, ../sass/global.sass */
 .button,
 button,
@@ -2499,4 +2498,8 @@ input[type="submit"],
 input[type="reset"],
 input[type="button"] {
   padding: 16px 20px;
+}
+
+.app--message--list:last-child{
+  padding-bottom: 195px;
 }
