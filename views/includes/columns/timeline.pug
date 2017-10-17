@@ -5,10 +5,10 @@
 				li
 					strong.app--tweet--timestamp #{tweet.created_at}
 					a.app--tweet--author
-						.app--avatar(style='background-image: url('+picture+')')
+						.app--avatar(style='background-image: url('+tweet.user.profile_image_url+')')
 							img(src='static/images/f-spore.png')
-						h4 #{name}
-						|  @#{screenName}
+						h4 #{tweet.user.name}
+						|  @#{tweet.user.screen_name}
 					p #{tweet.text}
 					ul.app--tweet--actions.circle--list--inline
 						li
