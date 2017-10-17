@@ -45,7 +45,7 @@ const getFriends = authUser => {
 const getTweets = authUser => {
     return new Promise((resolve, reject) => {
         let T = new Twit(config);
-        T.get('direct_messages/sent', { count: 5 }, (err, data) => {
+        T.get('statuses/user_timeline', { count: 5 }, (err, data) => {
             if (err) return reject(err);
             authUser.tweets = data
             resolve(authUser);
