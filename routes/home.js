@@ -77,7 +77,7 @@ router.get('/', (req, res) => {
         .then(getFriends)
         .then(getMessages)
         .then(user => {
-            console.log(user);
+            res.locals = user;
             res.render('index')
         }).catch(err => {
             console.log(err.message);
