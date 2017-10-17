@@ -6,17 +6,12 @@ const Twit = require('twit');
 const organizeTimeStamp = authUser => {
     return new Promise((resolve, reject) => {
         if (authUser.tweets.length === 5 && authUser.messages.length === 5) {
-
             authUser.tweets.sort((a, b) => a.created_at > b.created_at);
+            authUser.messages.sort((a, b) => a.created_at > b.created_at);
             for (let i = 0; i < authUser.tweets.length; i++) {
                 authUser.tweets[i].created_at = new Date(authUser.tweets[i].created_at).toLocaleString();
-            }
-
-            authUser.messages.sort((a, b) => a.created_at > b.created_at);
-            for (let i = 0; i < authUser.messages.length; i++) {
                 authUser.messages[i].created_at = new Date(authUser.messages[i].created_at).toLocaleString();
             }
-            
             resolve(authUser)
         } else reject(new Error('The last 5 tweets/messages were not retrieved'));
     });
@@ -103,6 +98,10 @@ router.get('/', (req, res) => {
             //error = err.message might have to dynamically write the error to /error
             res.redirect('/error');
         });
+});
+
+router.post('/', (req, res) => {
+    res.send({});
 });
 
 module.exports = router;
