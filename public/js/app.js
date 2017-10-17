@@ -11,7 +11,7 @@ const tweetUpdate = data => {
         $('#tweet-textarea').val('');
         return $('form').append('<p style= "margin: 0 auto;text-align: center;" >' + data.message + '</p>')
     }
-    let $oldTweet = $('.app--tweet--list').children().first();
+    let $oldTweet = $('.app--tweet--list').children().last();
     $oldTweet.find('.app--tweet--timestamp').html(data.date)
     let avatar = $oldTweet.find('.app--avatar').css({'background-image':'url('+data.picture+')'})
     $oldTweet.find('.app--tweet--author').html(avatar).append(data.author);
@@ -20,7 +20,7 @@ const tweetUpdate = data => {
     $oldTweet.find('.app--like').find('strong').html(data.like);
     let newTweet = $oldTweet.prop('outerHTML');
     $oldTweet.remove()
-    $('.app--tweet--list').append(newTweet);
+    $('.app--tweet--list').children().first().before(newTweet);
     $('#tweet-textarea').val('');
 }
 

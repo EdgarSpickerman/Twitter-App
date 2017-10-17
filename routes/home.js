@@ -6,8 +6,8 @@ const Twit = require('twit');
 const organizeTimeStamp = authUser => {
     return new Promise((resolve, reject) => {
         if (authUser.tweets.length === 5 && authUser.messages.length === 5) {
-            authUser.tweets.sort((a, b) => a.created_at > b.created_at);
-            authUser.messages.sort((a, b) => a.created_at > b.created_at);
+            authUser.tweets.sort((a, b) => a.created_at < b.created_at);
+            authUser.messages.sort((a, b) => a.created_at < b.created_at);
             for (let i = 0; i < authUser.tweets.length; i++) {
                 authUser.tweets[i].created_at = new Date(authUser.tweets[i].created_at).toLocaleString();
                 authUser.messages[i].created_at = new Date(authUser.messages[i].created_at).toLocaleString();
