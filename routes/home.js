@@ -48,7 +48,7 @@ const getMessages = authUser => {
         let T = new Twit(config);
         T.get('direct_messages/sent', { count: 5 }, (err, data) => {
             if (err) return reject(err);
-            authUser.friends = data
+            authUser.messages = data
             resolve(authUser);
         });
     });
