@@ -22,4 +22,4 @@ const consoleMessage = `Twitter Application running on localhost:${port}`;
         app.use(error);
 
     //listening Port
-        app.listen(port, () => consoleMessage);
+        app.listen(port, () => console.log(consoleMessage));
