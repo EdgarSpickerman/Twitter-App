@@ -1,2 +1,17 @@
-h1 #{error.message}
-h2 #{error.stack}
+doctype html
+html(lang='en')
+	head
+		meta(charset='utf-8')
+		title Twitter Client Error
+		meta(name='description', content='')
+		meta(name='author', content='')
+		meta(name='viewport', content='width=device-width, initial-scale=1')
+		link(href='https://fonts.googleapis.com/css?family=Work+Sans:400,600', rel='stylesheet', type='text/css')
+		link(rel='stylesheet', href='static/css/global.css')
+		link(rel='stylesheet', href='static/css/error.css')
+	body
+		h1(style='text-align:center') #{error}
+		a(style='display: block; text-align:center') click here for more information
+		.stack
+			p #{message}
+		script(src='static/js/error.js')

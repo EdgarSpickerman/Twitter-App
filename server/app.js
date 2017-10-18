@@ -21,8 +21,9 @@ const consoleMessage = `Twitter Application running on localhost:${port}`;
         app.use(home);
         app.use(error);
         app.use((err, req, res, next) => {
-            app.locals.error = { message: err, stack: err.stack };
-            res.redirect('/error')
+            app.locals.error = err.message;
+            app.locals.message = err.stack;
+            res.redirect('/error');
         })
 
     //listening Port
