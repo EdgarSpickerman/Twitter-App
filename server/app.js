@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const home = require('../routes/home');
 const error = require('../routes/error');
+const other = require('../routes/other');
 
 
 //variables
@@ -20,9 +21,10 @@ const consoleMessage = `Twitter Application running on localhost:${port}`;
     //routes
         app.use(home);
         app.use(error);
+        app.use(other);
         app.use((err, req, res, next) => {
-            app.locals.error = err.message;
-            app.locals.message = err.stack;
+            res.app.locals.error = err.message;
+            res.app.locals.message = err.stack;
             res.redirect('/error');
         })
 
