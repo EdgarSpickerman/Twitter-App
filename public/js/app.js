@@ -6,6 +6,7 @@ $('form').keyup(function (e) {
     $(this).find('.app--tweet--char').html(max - charTaken);
 });
 
+//describes what we are going to do with the response from the express server
 const tweetUpdate = data => {
     if (data.statusCode) {
         $('#tweet-textarea').val('');
@@ -24,6 +25,8 @@ const tweetUpdate = data => {
     $('#tweet-textarea').val('');
 }
 
+
+//makes a post ajax request to the server
 $('form').submit(function (e) {
     e.preventDefault();
     let $thisForm = $(this);

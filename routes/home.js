@@ -1,8 +1,10 @@
+//variables and modules
 const express = require('express');
 const router = express.Router();
 const config = require('../config.js');
 const Twit = require('twit');
 
+//convert the date strings to formatted time/date
 const organizeTimeStamp = authUser => {
     return new Promise((resolve, reject) => {
         if (authUser.tweets.length === 5 && authUser.messages.length === 5) {
@@ -96,6 +98,9 @@ router.get('/', (req, res,next) => {
         }).catch(err => next(err));
 });
 
+//makes a post request to twitter retrieving the last tweet the user made
+//returns properties of the tweet
+//sends those properties to the client
 router.post('/', (req, res) => {
     let T = new Twit(config);
     T.post('statuses/update', { status: req.body.newTweet }, (err, data) => {
