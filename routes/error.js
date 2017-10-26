@@ -6,7 +6,7 @@ const router = express.Router();
 // if errors are really present then render the error page
 //if errors are not really present then render the 404 page
 router.get('/error', (req, res) => {
-    if (res.locals.error) {
+    if (res.app.locals.error) {
         res.render('error');
     } else {
         let err = new Error('Page Not Found');

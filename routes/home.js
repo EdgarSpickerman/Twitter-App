@@ -6,16 +6,15 @@ const Twit = require('twit');
 
 //convert the date strings to formatted time/date
 const organizeTimeStamp = authUser => {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
         authUser.tweets.sort((a, b) => a.created_at < b.created_at);
         for (let i = 0; i < authUser.tweets.length; i++) {
             authUser.tweets[i].created_at = new Date(authUser.tweets[i].created_at).toLocaleString();
         }
         authUser.messages.sort((a, b) => a.created_at < b.created_at);
-        for (let j = 0; j < authUser.tweets.length; j++) {
+        for (let j = 0; j < authUser.messages.length; j++) {
             authUser.messages[j].created_at = new Date(authUser.messages[j].created_at).toLocaleString();
         }
-
         resolve(authUser)
     });
 }
@@ -24,7 +23,7 @@ const organizeTimeStamp = authUser => {
 //resolves with the authUser's name, screen_name, friends count, profile image and banner;
 //rejects the user if any key is invalid.
 const isAuthenticated = () => {
-    return new Promise((resolve,reject) => {
+    return new Promise(resolve => {
         let T = new Twit(config);
         T.get('account/verify_credentials', (err, data) => {
             if (err) return reject(err)
