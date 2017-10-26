@@ -7,15 +7,16 @@ const Twit = require('twit');
 //convert the date strings to formatted time/date
 const organizeTimeStamp = authUser => {
     return new Promise((resolve, reject) => {
-        if (authUser.tweets.length === 5 && authUser.messages.length === 5) {
-            authUser.tweets.sort((a, b) => a.created_at < b.created_at);
-            authUser.messages.sort((a, b) => a.created_at < b.created_at);
-            for (let i = 0; i < authUser.tweets.length; i++) {
-                authUser.tweets[i].created_at = new Date(authUser.tweets[i].created_at).toLocaleString();
-                authUser.messages[i].created_at = new Date(authUser.messages[i].created_at).toLocaleString();
-            }
-            resolve(authUser)
-        } else reject(new Error('The last 5 tweets/messages were not retrieved'));
+        authUser.tweets.sort((a, b) => a.created_at < b.created_at);
+        for (let i = 0; i < authUser.tweets.length; i++) {
+            authUser.tweets[i].created_at = new Date(authUser.tweets[i].created_at).toLocaleString();
+        }
+        authUser.messages.sort((a, b) => a.created_at < b.created_at);
+        for (let j = 0; j < authUser.tweets.length; j++) {
+            authUser.messages[j].created_at = new Date(authUser.messages[j].created_at).toLocaleString();
+        }
+
+        resolve(authUser)
     });
 }
 
